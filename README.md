@@ -1,68 +1,65 @@
-# AI-Powered Python Projects
+# 🚀 LLM Projects with Hugging Face & GPU
 
-이 저장소는 LLM(Large Language Model)과 AI 기술을 활용한 다양한 Python 프로젝트를 포함하고 있습니다.
+Welcome to my LLM projects repository leveraging Hugging Face models and GPU acceleration! 🤖💻
 
-## 프로젝트 목록
+## 🌟 Project Highlights
 
-### 1. LLM 기반 대화 시스템 (예정)
+### 1. Conversational AI Assistant
 
-대규모 언어 모델을 활용한 대화형 AI 시스템입니다.
+![Conversational AI](https://github.com/seolmiseon/llm_projects/raw/main/images/conversational_ai.gif)
+_Interactive chatbot powered by GPT-3 and fine-tuned with domain-specific data_
 
-#### 예상 주요 기능
+### 2. Text Summarization Engine
 
--   자연어 처리: 사용자 입력을 이해하고 적절한 응답 생성
--   문맥 인식: 대화의 맥락을 파악하여 일관된 대화 유지
--   다국어 지원: 다양한 언어로 대화 가능
+![Text Summarization](https://github.com/seolmiseon/llm_projects/raw/main/images/text_summarization.png)
+_Efficient text summarization using T5 and optimized with GPU_
 
-### 2. RAG(Retrieval-Augmented Generation) 시스템 (예정)
+### 3. Question-Answering System
 
-정보 검색과 생성을 결합한 고급 AI 시스템입니다.
+![QA System](https://github.com/seolmiseon/llm_projects/raw/main/images/qa_system.png)
+_Advanced Q&A system using BERT and RAG (Retrieval-Augmented Generation)_
 
-#### 예상 주요 기능
+## 🛠️ Projects & Technologies
 
--   정보 검색: 대규모 데이터베이스에서 관련 정보 추출
--   컨텍스트 기반 생성: 검색된 정보를 바탕으로 정확한 응답 생성
--   실시간 업데이트: 최신 정보를 반영한 응답 제공
+1. **Conversational AI Assistant** (✅ Completed)
 
-### 3. Shell Script 자동화 도구 (예정)
+    - Interactive chatbot for customer support
+    - Technologies: Python, Hugging Face Transformers, GPT-3, CUDA
 
-AI를 활용한 Shell Script 생성 및 최적화 도구입니다.
+2. **Text Summarization Engine** (🚧 In Progress)
 
-#### 예상 주요 기능
+    - Automatic summarization of long documents
+    - Technologies: Python, Hugging Face Transformers, T5, PyTorch, GPU acceleration
 
--   스크립트 생성: 자연어 명령을 Shell Script로 변환
--   코드 최적화: 기존 Shell Script의 성능 개선
--   오류 검출 및 수정: 스크립트의 잠재적 문제 식별 및 해결 제안
+3. **Question-Answering System** (✅ Completed)
 
-### 4. 소규모 언어 모델(sLLM) 실험 (예정)
+    - Context-aware Q&A for large datasets
+    - Technologies: Python, Hugging Face Transformers, BERT, FAISS, CUDA
 
-리소스 제약 환경에서 작동하는 소규모 언어 모델 개발 프로젝트입니다.
+4. **Few-Shot Learning Classifier** (🔜 Planned)
+    - Text classification with minimal training data
+    - Technologies: Python, Hugging Face Transformers, GPT-3, PyTorch, GPU optimization
 
-#### 예상 주요 기능
+## 🔧 Key Libraries & Tools
 
--   경량화 모델 훈련: 작은 규모의 효율적인 언어 모델 개발
--   특정 도메인 최적화: 특정 분야에 특화된 모델 생성
--   모바일/엣지 디바이스 배포: 제한된 리소스 환경에서의 모델 실행
+-   Hugging Face Transformers 🤗 for state-of-the-art LLMs
+-   PyTorch 🔥 for deep learning
+-   CUDA 🚀 for GPU acceleration
+-   FAISS 🔍 for efficient similarity search and clustering
+-   Streamlit 🌟 for creating interactive web demos
 
-## 시작하기
+## 🖥️ GPU Setup
 
-1. 저장소를 클론합니다: git clone https://github.com/seolmiseon/python_projects.git
+This project utilizes GPU acceleration. Ensure you have:
 
-2. 프로젝트 디렉토리로 이동합니다:
-   cd python_projects
+-   NVIDIA GPU with CUDA support
+-   CUDA Toolkit installed
+-   Appropriate GPU drivers
 
-3. 필요한 의존성을 설치합니다:
-   pip install -r requirements.txt
+Check GPU availability in Python:
 
-## 요구 사항
-
--   Python 3.8+
--   기타 필요한 라이브러리 (프로젝트별 requirements.txt 참조)
-
-## 기여하기
-
-이슈와 풀 리퀘스트는 언제나 환영합니다. 큰 변경사항의 경우, 먼저 이슈를 열어 논의해 주세요.
-
-## 라이선스
-
-이 프로젝트는 MIT 라이선스 하에 있습니다. 자세한 내용은 [LICENSE](LICENSE) 파일을 참조하세요.
+```python
+import torch
+print(torch.cuda.is_available())
+print(torch.cuda.get_device_name(0))
+```
