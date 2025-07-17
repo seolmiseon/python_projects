@@ -159,14 +159,16 @@ class BusRAGSystem:
         """
         최적의 청크 크기로 RAG 시스템 설정
         """
-        if not self.chunk_experiments:
-            self.test_chunk_sizes()
+        if os.path.exists("chunk_experiments.json"):
+            with open("chunk_experiments.json", 'r') as f:
+                self.chunk_experiments = json.load(f)
+        else:
+            self.test_chunk_sizes()  # 최초 1회만 실행
         
+        # 최적 청크 크기로 벡터스토어 생성
         best_chunk_size = self.get_best_chunk_size()
-        print(f"최적 청크 크기: {best_chunk_size}")
-        
-        self.vectorstore, _ = self.create_vectorstore_with_chunk_size(best_chunk_size)
-        return self.vectorstore
+        vectorstore, _ = self.create_vectorstore_with_chunk_size(best_chunk_size)
+        return vectorstore
     
     def search_bus_info(self, query, k=3):
         """

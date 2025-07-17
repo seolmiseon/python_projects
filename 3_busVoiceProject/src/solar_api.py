@@ -15,7 +15,7 @@ def classify_bus_info_with_solar_mini(bus_data):
     - 정류장 유형, 혼잡도, 시간대 등을 분류
     """
     chat = ChatUpstage(
-        upstage_api_key=UPSTAGE_API_KEY,
+        api_key=UPSTAGE_API_KEY,  # type: ignore
         model="solar-mini"
     )
     
@@ -57,7 +57,7 @@ def generate_final_notice_with_solar_pro(classified_info, bus_number):
     - 분류된 정보를 바탕으로 개인화된 안내문구 생성
     """
     chat = ChatUpstage(
-        upstage_api_key=UPSTAGE_API_KEY,
+        api_key=UPSTAGE_API_KEY,  # type: ignore
         model="solar-pro"
     )
     
