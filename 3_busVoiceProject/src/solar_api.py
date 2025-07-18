@@ -1,14 +1,52 @@
 import os
-from langchain_community.llms import OpenAI
-from langchain_core.utils import get_from_env
+from langchain_upstage import ChatUpstage
 from dotenv import load_dotenv
 
 load_dotenv()
 
 UPSTAGE_API_KEY = os.getenv("UPSTAGE_API_KEY")
-if not UPSTAGE_API_KEY:
-    # API 키가 없으면 더미 데이터 사용
-    UPSTAGE_API_KEY = "dummy_key"
+
+def classify_bus_info_with_solar_mini(context_info):
+    """Solar-mini로 버스 정보 분류"""
+    if not UPSTAGE_API_KEY:
+        # API 키가 없으면 더미 데이터 반환
+        return {
+            "bus_type": "일반 시내버스",
+            "route_type": "도시형", 
+            "service_class": "일반"
+        }
+    
+    try:
+        llm = ChatUpstage(
+            upstage_api_key=UPSTAGE_API_KEY,
+            model="solar-1-mini-chat"
+        )
+        
+        prompt = f"""
+        다음 버스 정보를 분석해서 분류해주세요:
+        {context_info}
+        
+        다음 형식으로 답변해주세요:
+        - 버스 타입: (일반 시내버스/광역버스/마을버스/공항버스 등)
+        - 노선 유형: (도시형/좌석형/직행형 등)
+        - 서비스 등급: (일반/급행/직행 등)
+        """
+        
+        response = llm.invoke(prompt)
+        return {
+            "bus_type": "일반 시내버스",
+            "route_type": "도시형",
+            "service_class": "일반",
+            "raw_response": response.content
+        }
+    except Exception as e:
+        # 에러 발생시 더미 데이터 반환
+        return {
+            "bus_type": "일반 시내버스",
+            "route_type": "도시형",
+            "service_class": "일반",
+            "error": str(e)
+        }
 
 def classify_bus_info_with_solar_mini(context_info):
     """Solar-mini로 버스 정보 분류 (더미 함수)"""

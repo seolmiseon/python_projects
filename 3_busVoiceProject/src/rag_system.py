@@ -1,23 +1,47 @@
 import os
-from langchain_upstage import UpstageEmbeddings
-from langchain_chroma import Chroma
-from langchain_core.documents import Document
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_core.utils import get_from_env
 from dotenv import load_dotenv
 import json
 import time
 
 load_dotenv()
 
-# Solar Embeddings 설정 - 지연 초기화
-embeddings = None
+# 더미 RAG 시스템 구현
+class DummyRAGSystem:
+    def __init__(self):
+        self.vectorstore = None
+        self.documents = []
+    
+    def create_bus_documents(self):
+        """더미 버스 문서 생성"""
+        return [
+            {
+                "content": "버스 운행 정보",
+                "metadata": {"source": "bus_info", "type": "route"}
+            }
+        ]
+    
+    def create_vectorstore_with_chunk_size(self, chunk_size=500, chunk_overlap=50):
+        """더미 벡터스토어 생성"""
+        print("더미 벡터스토어 생성됨")
+        return self
+    
+    def similarity_search(self, query, k=3):
+        """더미 유사도 검색"""
+        return [
+            {
+                "content": "버스 운행 관련 정보",
+                "metadata": {"source": "bus_info"}
+            }
+        ]
 
-UPSTAGE_API_KEY = os.getenv("UPSTAGE_API_KEY")
-if not UPSTAGE_API_KEY:
-    raise ValueError("UPSTAGE_API_KEY not found in environment variables")
-
-embeddings = UpstageEmbeddings(model="solar-embedding-1-large")
+def rag_system(question, k=3):
+    """더미 RAG 시스템 함수"""
+    # 더미 응답 반환
+    return {
+        "answer": "현재 버스 운행 정보를 확인하고 있습니다.",
+        "sources": ["더미 데이터"],
+        "context": "버스 운행 관련 정보"
+    }
 
 class BusRAGSystem:
     def __init__(self):
