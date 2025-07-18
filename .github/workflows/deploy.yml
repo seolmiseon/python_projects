@@ -1,54 +1,54 @@
 name: CI/CD Pipeline for Bus Voice System
 
 on:
-  push:
-    branches: [ main ]
-    paths:
-      - '3_busVoiceProject/**'  # 3번 폴더 변경시에만 실행
-  pull_request:
-    branches: [ main ]
-    paths:
-      - '3_busVoiceProject/**'
+    push:
+        branches: [main]
+        paths:
+            - '3_busVoiceProject/**' # 3번 폴더 변경시에만 실행
+    pull_request:
+        branches: [main]
+        paths:
+            - '3_busVoiceProject/**'
 
 jobs:
-  test-and-validate:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up Python 3.11
-      uses: actions/setup-python@v3
-      with:
-        python-version: 3.11
-    
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        cd 3_busVoiceProject
-        pip install -r requirements.txt
-    
-    - name: Run code quality checks
-      run: |
-        cd 3_busVoiceProject
-        echo "🔍 코드 품질 검사 중..."
-        # flake8 src/ --max-line-length=127
-        echo "✅ 코드 품질 검사 통과"
-    
-    - name: Run tests
-      run: |
-        cd 3_busVoiceProject
-        echo "🧪 테스트 실행 중..."
-        # python -m pytest tests/ -v (테스트 파일 추가시)
-        echo "✅ 모든 테스트 통과"
-    
-    - name: Notify deployment ready
-      run: |
-        echo "🚀 배포 준비 완료!"
-        echo "Streamlit Cloud에서 자동으로 배포됩니다."
-        echo "📱 앱 URL: https://share.streamlit.io/seolmiseon/python_projects/main/3_busVoiceProject/src/app.py"
-    
-    - name: Deploy to Streamlit Cloud
-      run: |
-        echo "Streamlit Cloud 배포 준비 완료"
-        echo "앱 URL: https://seolmiseon-python-projects-streamlit-app.streamlit.app/"
+    test-and-validate:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Set up Python 3.11
+              uses: actions/setup-python@v3
+              with:
+                  python-version: 3.11
+
+            - name: Install dependencies
+              run: |
+                  python -m pip install --upgrade pip
+                  cd 3_busVoiceProject
+                  pip install -r requirements.txt
+
+            - name: Run code quality checks
+              run: |
+                  cd 3_busVoiceProject
+                  echo "🔍 코드 품질 검사 중..."
+                  # flake8 src/ --max-line-length=127
+                  echo "✅ 코드 품질 검사 통과"
+
+            - name: Run tests
+              run: |
+                  cd 3_busVoiceProject
+                  echo "🧪 테스트 실행 중..."
+                  # python -m pytest tests/ -v (테스트 파일 추가시)
+                  echo "✅ 모든 테스트 통과"
+
+            - name: Notify deployment ready
+              run: |
+                  echo "🚀 배포 준비 완료!"
+                  echo "Streamlit Cloud에서 자동으로 배포됩니다."
+                  echo "📱 앱 URL: https://share.streamlit.io/seolmiseon/python_projects/main/3_busVoiceProject/src/app.py"
+
+            - name: Deploy to Streamlit Cloud
+              run: |
+                  echo "Streamlit Cloud 배포 준비 완료"
+                  echo "앱 URL: https://seolmiseon-python-projects-streamlit-app.streamlit.app/"
