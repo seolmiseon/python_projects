@@ -1,4 +1,4 @@
-# Streamlit Cloud에서 필요한 시스템 패키지
-# 필요시 추가하세요
+# System packages for Streamlit Cloud
+# Add system packages here if needed
 # ffmpeg
 # libsndfile1
