@@ -8,6 +8,7 @@ import base64
 from dotenv import load_dotenv
 import os
 import json
+import time
 
 load_dotenv()
 GOOGLE_TTS_API_KEY = os.getenv("GOOGLE_TTS_API_KEY")
@@ -64,8 +65,8 @@ def enhanced_bus_notice_system():
         
         if city_code and route_id:
             with st.spinner("버스 정보를 분석 중..."):
-                # 1. 기본 버스 정보 가져오기
-                bus_number = get_route_info(city_code, route_id)
+                # 1. 기본 버스 정보 가져오기 (임시: 사용자 입력값 사용)
+                bus_number = bus_number_input
                 
                 if bus_number:
                     # 2. 컨텍스트 정보 생성
@@ -105,8 +106,10 @@ def enhanced_bus_notice_system():
                     
                     # 7. TTS 변환 및 재생
                     st.info("🎵 음성 변환 중...")
-                    google_tts(final_notice, "output.mp3")
-                    st.audio("output.mp3")
+                    # 동적 파일명 생성으로 TTS 캐시 문제 해결
+                    filename = f"output_{int(time.time())}.mp3"
+                    google_tts(final_notice, filename)
+                    st.audio(filename)
                     
                     # 8. 기존 방식과 비교
                     with st.expander("기존 방식과 비교"):
@@ -158,13 +161,17 @@ def main():
             route_id = route_mapping.get((city_code, bus_number_input), "DJB30300004")  # 기본값
             
             if city_code and route_id:
-                bus_number = get_route_info(city_code, route_id)
+                # 임시: API 대신 사용자 입력값 사용
+                bus_number = bus_number_input
                 if bus_number:
                     notice = f"이 버스는 {bus_number}번 버스입니다."
                     st.success(f"안내문구: {notice}")
                     print("TTS로 넘길 notice:", notice, type(notice))
-                    google_tts(notice, "output.mp3")
-                    st.audio("output.mp3")
+                    
+                    # 동적 파일명 생성으로 TTS 캐시 문제 해결
+                    filename = f"output_{int(time.time())}.mp3"
+                    google_tts(notice, filename)
+                    st.audio(filename)
                 else:
                    st.warning("버스 정보를 불러오지 못했습니다.")
             else:
