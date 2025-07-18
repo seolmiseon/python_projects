@@ -3,12 +3,12 @@ streamlit==1.46.1
 requests==2.32.4
 python-dotenv==1.1.1
 
-# LangChain 관련 (최신 안정 버전)
-langchain-community==0.3.26
-langchain-core==0.3.66
-langchain-upstage==0.2.8
-langchain-text-splitters==0.3.8
-langchain-chroma==0.1.4
+# LangChain 관련 (검증된 안정 버전)
+langchain-community==0.2.16
+langchain-core==0.2.38
+langchain-upstage==0.1.8
+langchain-text-splitters==0.2.4
+langchain-chroma==0.1.2
 
 # ChromaDB (CPU 버전)
 chromadb==0.4.24
