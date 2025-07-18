@@ -26,6 +26,27 @@ share/python-wheels/
 *.egg
 MANIFEST
 
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+*_env/
+*/venv/
+*/env/
+*/*_env/
+
+# TTS output files
+*.mp3
+output_*.mp3
+
+# Python version files
+.python-version
+
+# Embedded git repositories
+sesac-ai/
+
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
