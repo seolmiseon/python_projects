@@ -10,7 +10,11 @@ from dotenv import load_dotenv
 # 환경변수 로드
 load_dotenv()
 
-
+# OpenAI 관련 환경변수 강제 제거
+if 'OPENAI_API_KEY' in os.environ:
+    del os.environ['OPENAI_API_KEY']
+if 'OPENAI_API_BASE' in os.environ:
+    del os.environ['OPENAI_API_BASE']
 
 # Streamlit Cloud 환경변수 설정 (배포 시 사용)
 if 'UPSTAGE_API_KEY' not in os.environ:
