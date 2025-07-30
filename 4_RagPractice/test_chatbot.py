@@ -44,7 +44,7 @@ with st.sidebar:
     hf_token = st.text_input(
         "Hugging Face API 토큰",
         type="password",
-        value=os.getenv("HUGGINGFACEHUB_API_TOKEN", ""),
+        value=st.secrets.get("HUGGINGFACEHUB_API_TOKEN", "") or os.getenv("HUGGINGFACEHUB_API_TOKEN", ""),
         help="Hugging Face에서 발급받은 API 토큰을 입력하세요"
     )
     
