@@ -10,6 +10,12 @@ from dotenv import load_dotenv
 # 환경변수 로드
 load_dotenv()
 
+# Streamlit Cloud 환경변수 설정 (배포 시 사용)
+if 'UPSTAGE_API_KEY' not in os.environ:
+    os.environ['UPSTAGE_API_KEY'] = st.secrets.get('UPSTAGE_API_KEY', '')
+if 'HUGGINGFACEHUB_API_TOKEN' not in os.environ:
+    os.environ['HUGGINGFACEHUB_API_TOKEN'] = st.secrets.get('HUGGINGFACEHUB_API_TOKEN', '')
+
 # 페이지 설정
 st.set_page_config(
     page_title="기본 대화 기억 챗봇",
@@ -24,11 +30,11 @@ st.markdown("---")
 with st.sidebar:
     st.header("설정")
     
-    # Upstage API 키 입력 (기본값으로 .env에서 로드)
+    # Upstage API 키 입력 (Streamlit Secrets 우선, 환경변수 차선)
     upstage_key = st.text_input(
         "Upstage API 키",
         type="password",
-        value=os.getenv("UPSTAGE_API_KEY", ""),
+        value=st.secrets.get("UPSTAGE_API_KEY", "") or os.getenv("UPSTAGE_API_KEY", ""),
         help="Upstage에서 발급받은 API 키를 입력하세요"
     )
     
@@ -75,7 +81,7 @@ def load_sentiment_analyzer():
         return None
 
 # LangChain 대화 체인 초기화
-def initialize_conversation():
+def initialize_conversation(api_key):
     """대화 체인 초기화"""
     try:
         # 메모리 설정 (대화 기억)
@@ -84,7 +90,8 @@ def initialize_conversation():
         # LLM 설정 (Upstage Solar 모델 사용)
         llm = ChatUpstage(
             model="solar-1-mini-chat",
-            temperature=0.7
+            temperature=0.7,
+            api_key=api_key
         )
         
         # 대화 체인 생성
@@ -124,7 +131,7 @@ def main():
     # 대화 체인 초기화
     if st.session_state.conversation is None and upstage_key:
         with st.spinner("대화 체인을 초기화하는 중..."):
-            st.session_state.conversation = initialize_conversation()
+            st.session_state.conversation = initialize_conversation(upstage_key)
     
     # 채팅 인터페이스
     st.subheader("대화하기")
@@ -170,6 +177,10 @@ def main():
     if st.button("대화 기록 초기화"):
         st.session_state.messages = []
         st.session_state.conversation = None
+        # API 키가 있으면 대화 체인 재초기화
+        if upstage_key:
+            with st.spinner("대화 체인을 재초기화하는 중..."):
+                st.session_state.conversation = initialize_conversation(upstage_key)
         st.rerun()
 
 if __name__ == "__main__":
