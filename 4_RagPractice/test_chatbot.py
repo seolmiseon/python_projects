@@ -1,7 +1,7 @@
 import streamlit as st
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationChain
-from langchain_community.chat_models import ChatOpenAI
+# from langchain_community.chat_models import ChatOpenAI  # 사용하지 않으므로 주석 처리
 from langchain_upstage import ChatUpstage
 from transformers import pipeline
 import os
@@ -9,6 +9,8 @@ from dotenv import load_dotenv
 
 # 환경변수 로드
 load_dotenv()
+
+
 
 # Streamlit Cloud 환경변수 설정 (배포 시 사용)
 if 'UPSTAGE_API_KEY' not in os.environ:
